@@ -3,21 +3,13 @@ package com.revature.caliber.data;
 import java.util.List;
 
 import org.apache.log4j.Logger;
-import org.hibernate.Criteria;
-import org.hibernate.FetchMode;
-import org.hibernate.SessionFactory;
-import org.hibernate.criterion.Restrictions;
-import org.hibernate.sql.JoinType;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.revature.caliber.Salesforce;
 import com.revature.caliber.beans.Trainee;
-import com.revature.caliber.beans.TrainingStatus;
 
 /**
  * @author Patrick Walsh
@@ -49,9 +41,9 @@ public interface TraineeDAO extends JpaRepository<Trainee, Integer>{
 	 * @param trainerId
 	 * @return
 	 */
-	@SuppressWarnings("unchecked")
-	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
-	public List<Trainee> findByTrainer(Integer trainerId);
+//	@SuppressWarnings("unchecked")
+//	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
+//	public List<Trainee> findByTrainerId(Integer trainerId);
 
 	/**
 	 * * Find a trainee by the given identifier

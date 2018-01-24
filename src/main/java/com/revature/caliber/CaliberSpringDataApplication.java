@@ -9,8 +9,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.annotation.Bean;
 
+import com.revature.caliber.beans.Address;
 import com.revature.caliber.data.AddressDAO;
-import com.revature.caliber.model.Address;
 import com.revature.caliber.repository.AddressRepository;
 
 @SpringBootApplication
