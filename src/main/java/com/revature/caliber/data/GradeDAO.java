@@ -30,7 +30,26 @@ public interface GradeDAO extends JpaRepository<Grade, Integer>{
 	//@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 	//public List<Grade> findByAssessmentAssessmentId(Long assessmentId) ;
 	
+	/**
+	 * Returns the grade given the id of the grade. Mainly used for testing.
+	 * 
+	 * @param gradeId
+	 * @return
+	 */
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
-	public Address findByGradeId(int id);
+	public Grade findByGradeId(long gradeId);
+	
+	
+	
+	/**
+	 * Returns grades for all trainees that took a particular assignment. Great
+	 * for finding average/median/highest/lowest grades for a test
+	 * 
+	 * @param assessmentId
+	 * @return
+	 */
+	@SuppressWarnings("unchecked")
+	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
+	public List<Grade> findByAssessmentAssessmentId(Long assessmentId) ;
 
 }

@@ -51,8 +51,10 @@ public class CaliberSpringDataApplication {
 			List<Category> activeCategorys = catDao.findAllActive();
 			System.out.println(activeCategorys);
 			
-			List<Grade> grades = gDao.findAll();
+			//List<Grade> grades = gDao.findAll();
 			//System.out.println(grades);
+			Grade test = gDao.findByGradeId(1077L);
+			System.out.println(test.getScore());
 		};
 	}
 }
