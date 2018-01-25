@@ -12,10 +12,14 @@ import com.revature.caliber.beans.Address;
 import com.revature.caliber.beans.Note;
 import com.revature.caliber.data.AddressDAO;
 import com.revature.caliber.data.NoteDAO;
+import com.revature.caliber.beans.Category;
+import com.revature.caliber.data.CategoryDAO;
 
 @SpringBootApplication
 public class CaliberSpringDataApplication {
 	
+	@Autowired
+	private CategoryDAO catDao;
 	@Autowired
 	private AddressDAO aDao;
 	@Autowired
@@ -35,6 +39,12 @@ public class CaliberSpringDataApplication {
 			System.out.println(addresses);
 			System.out.println(a);
 			System.out.println(notes);
+			
+			List<Category> categorys = catDao.findAll();
+			System.out.println(categorys);
+			
+			List<Category> activeCategorys = catDao.findAllActive();
+			System.out.println(activeCategorys);
 		};
 	}
 }
