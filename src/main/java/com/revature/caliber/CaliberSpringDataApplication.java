@@ -14,6 +14,8 @@ import com.revature.caliber.data.AddressDAO;
 import com.revature.caliber.data.NoteDAO;
 import com.revature.caliber.beans.Category;
 import com.revature.caliber.data.CategoryDAO;
+import com.revature.caliber.beans.Panel;
+import com.revature.caliber.data.PanelDAO;
 
 @SpringBootApplication
 public class CaliberSpringDataApplication {
@@ -24,6 +26,8 @@ public class CaliberSpringDataApplication {
 	private AddressDAO aDao;
 	@Autowired
 	private NoteDAO nDao;
+	@Autowired
+	private PanelDAO panelDao;
 
 	public static void main(String[] args) {
 		SpringApplication.run(CaliberSpringDataApplication.class, args);
@@ -34,7 +38,9 @@ public class CaliberSpringDataApplication {
 		return args -> {
 			List<Address> addresses = aDao.findAll();
 			Address a = aDao.findByAddressId(1);
+			
 			List<Note> notes = nDao.findByTraineeTraineeId(5503);
+			List<Panel> panels = panelDao.findAll();
 			
 			System.out.println(addresses);
 			System.out.println(a);
@@ -45,6 +51,10 @@ public class CaliberSpringDataApplication {
 			
 			List<Category> activeCategorys = catDao.findAllActive();
 			System.out.println(activeCategorys);
+
+			System.out.println(panels);
+
+		
 		};
 	}
 }
