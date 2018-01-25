@@ -44,4 +44,15 @@ public class GradeDAOTest {
 			Assert.assertTrue(test.get(i).getAssessment().getAssessmentId() == 2053L);
 		}
 	}
+	
+	@Test
+	public void getGradebyTraineeTest() {
+		List<Grade> test = dao.findByTraineeTraineeId(5354);
+		Assert.assertTrue(!test.isEmpty());
+		for(int i = 0; i < test.size(); i++) {
+			//System.out.println(test.get(i).getAssessment().getAssessmentId());
+			Assert.assertTrue(test.get(i).getTrainee().getTraineeId() == 5354);
+			Assert.assertFalse(test.get(i).getTrainee().getTraineeId() == 5353);
+		}
+	}
 }

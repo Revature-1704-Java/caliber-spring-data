@@ -8,6 +8,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
@@ -51,5 +52,31 @@ public interface GradeDAO extends JpaRepository<Grade, Integer>{
 	@SuppressWarnings("unchecked")
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 	public List<Grade> findByAssessmentAssessmentId(Long assessmentId) ;
+	
+	
+	/**
+	 * Returns all grades for a trainee. Useful for generating a full-view of
+	 * individual trainee performance.
+	 * 
+	 * @param traineeId
+	 * @return
+	 */
+	@SuppressWarnings("unchecked")
+	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
+	public List<Grade> findByTraineeTraineeId(Integer traineeId);
+	
+	
+	/**
+	 * Returns all grades for a category. Useful for improving performance time
+	 * of company-wide reporting
+	 * 
+	 * @param batchId
+	 * @return
+	 */
+//	@SuppressWarnings("unchecked")
+//	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
+//	@Query()
+	//public List<Grade> findByCategoryId(Integer categoryId);
+
 
 }

@@ -53,8 +53,8 @@ public class CaliberSpringDataApplication {
 			
 			//List<Grade> grades = gDao.findAll();
 			//System.out.println(grades);
-			Grade test = gDao.findByGradeId(1077L);
-			System.out.println(test.getScore());
+			//Grade test = gDao.findByGradeId(1077L);
+			//System.out.println(test.getScore());
 		};
 	}
 }
