@@ -6,21 +6,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.annotation.Bean;
 
 import com.revature.caliber.beans.Address;
+import com.revature.caliber.beans.Note;
 import com.revature.caliber.data.AddressDAO;
-import com.revature.caliber.repository.AddressRepository;
+import com.revature.caliber.data.NoteDAO;
 
 @SpringBootApplication
 public class CaliberSpringDataApplication {
 	
 	@Autowired
-	private AddressRepository addressRepository;
-	
-	@Autowired
 	private AddressDAO aDao;
+	@Autowired
+	private NoteDAO nDao;
 
 	public static void main(String[] args) {
 		SpringApplication.run(CaliberSpringDataApplication.class, args);
@@ -29,11 +28,13 @@ public class CaliberSpringDataApplication {
 	@Bean
 	public CommandLineRunner runner() {
 		return args -> {
-			List<Address> addresses = addressRepository.findAll();
-			System.out.println(addresses);
-			
+			List<Address> addresses = aDao.findAll();
 			Address a = aDao.findByAddressId(1);
+			List<Note> notes = nDao.findByTraineeTraineeId(5503);
+			
+			System.out.println(addresses);
 			System.out.println(a);
+			System.out.println(notes);
 		};
 	}
 }
