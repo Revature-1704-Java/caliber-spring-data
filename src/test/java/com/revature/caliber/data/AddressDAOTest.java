@@ -1,10 +1,9 @@
 package com.revature.caliber.data;
 
-import static org.junit.Assert.assertNull;
+import static org.junit.Assert.*;
 
 import java.util.List;
 
-import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +22,7 @@ public class AddressDAOTest {
 	@Test
 	public void test() {
 		List<Address> test = dao.findAll();
-		Assert.assertTrue(test.isEmpty());
+		assertFalse(test.isEmpty());
 	}
 
 }
