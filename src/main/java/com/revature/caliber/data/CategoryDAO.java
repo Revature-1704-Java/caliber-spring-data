@@ -15,9 +15,9 @@ import com.revature.caliber.beans.Category;
 @Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 public interface CategoryDAO extends JpaRepository<Category, Integer>{
 
-	@Query("SELECT c FROM Category c ORDER BY c.categoryId ASC")
+	@Query("SELECT DISTINCT c FROM Category c ORDER BY c.categoryId ASC")
 	List<Category> findAll();
 	
-	@Query("SELECT c FROM Category c WHERE c.active=true ORDER BY c.skillCategory ASC")
+	@Query("SELECT DISTINCT c FROM Category c WHERE c.active=true ORDER BY c.skillCategory ASC")
 	List<Category> findAllActive();
 }
