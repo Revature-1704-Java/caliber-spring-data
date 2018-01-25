@@ -79,8 +79,9 @@ public class CategoryDAOTest {
 		log.info("Testing save method from CategoryDAO");
 		Category newCat = new Category("Underwater Basket Weaving", false);
 		Long before = jdbcTemplate.queryForObject(CATEGORY_COUNT, Long.class);
-		dao.save(newCat);
+		dao.saveAndFlush(newCat);
 		Long after = jdbcTemplate.queryForObject(CATEGORY_COUNT, Long.class);
+		System.out.println("before " +before +" after " +after);
 		assertEquals(++before, after);
 	}
 }
