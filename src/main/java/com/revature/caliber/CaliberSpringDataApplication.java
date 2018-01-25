@@ -10,7 +10,9 @@ import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.annotation.Bean;
 
 import com.revature.caliber.beans.Address;
+import com.revature.caliber.beans.Category;
 import com.revature.caliber.data.AddressDAO;
+import com.revature.caliber.data.CategoryDAO;
 import com.revature.caliber.repository.AddressRepository;
 
 @SpringBootApplication
@@ -18,6 +20,8 @@ public class CaliberSpringDataApplication {
 	
 	@Autowired
 	private AddressRepository addressRepository;
+	@Autowired
+	private CategoryDAO catDao;
 	
 	@Autowired
 	private AddressDAO aDao;
@@ -34,6 +38,12 @@ public class CaliberSpringDataApplication {
 			
 			Address a = aDao.findByAddressId(1);
 			System.out.println(a);
+			
+			List<Category> categorys = catDao.findAll();
+			System.out.println(categorys);
+			
+			List<Category> activeCategorys = catDao.findAllActive();
+			System.out.println(activeCategorys);
 		};
 	}
 }
