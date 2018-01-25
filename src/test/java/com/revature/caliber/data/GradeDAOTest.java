@@ -24,6 +24,6 @@ public class GradeDAOTest {
 	@Test
 	public void test() {
 		List<Grade> test = dao.findAll();
-		Assert.assertTrue(test.isEmpty());
+		Assert.assertTrue(!test.isEmpty());
 	}
 }

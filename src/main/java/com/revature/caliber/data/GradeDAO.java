@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.revature.caliber.beans.Address;
 import com.revature.caliber.beans.Grade;
 import com.revature.caliber.beans.TrainingStatus;
 
@@ -26,7 +27,10 @@ public interface GradeDAO extends JpaRepository<Grade, Integer>{
 	
 	
 	
-	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
-	public List<Grade> findByAssessmentAssessmentId(Long assessmentId) ;
+	//@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
+	//public List<Grade> findByAssessmentAssessmentId(Long assessmentId) ;
+	
+	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
+	public Address findByGradeId(int id);
 
 }
