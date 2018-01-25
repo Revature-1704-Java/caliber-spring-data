@@ -24,12 +24,12 @@ public class CategoryDAOTest {
 	@Test
 	public void testAll() {
 		List<Category> test = dao.findAll();
-		Assert.assertTrue(test.isEmpty());
+		Assert.assertFalse(test.isEmpty());
 	}
 	
 	@Test
 	public void testAllActive() {
 		List<Category> test = dao.findAllActive();
-		Assert.assertTrue(test.isEmpty());
+		Assert.assertFalse(test.isEmpty());
 	}
 }
