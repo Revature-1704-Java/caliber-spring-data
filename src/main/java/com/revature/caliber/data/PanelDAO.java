@@ -11,5 +11,9 @@ import com.revature.caliber.beans.Panel;
 @Repository
 @Transactional
 public interface PanelDAO extends JpaRepository<Panel, Integer> {
+	/* find all panels */
 	List<Panel> findAll();
+	
+	/* find by panel id */
+	List<Panel> findOne(int id);
 }

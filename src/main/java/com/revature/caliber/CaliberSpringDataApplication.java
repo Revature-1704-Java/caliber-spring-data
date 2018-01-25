@@ -37,13 +37,12 @@ public class CaliberSpringDataApplication {
 	public CommandLineRunner runner() {
 		return args -> {
 			List<Address> addresses = aDao.findAll();
-			Address a = aDao.findByAddressId(1);
-			
-			List<Note> notes = nDao.findByTraineeTraineeId(5503);
-			List<Panel> panels = panelDao.findAll();
-			
 			System.out.println(addresses);
+
+			Address a = aDao.findByAddressId(1);
 			System.out.println(a);
+
+			List<Note> notes = nDao.findByTraineeTraineeId(5503);
 			System.out.println(notes);
 			
 			List<Category> categorys = catDao.findAll();
@@ -52,7 +51,11 @@ public class CaliberSpringDataApplication {
 			List<Category> activeCategorys = catDao.findAllActive();
 			System.out.println(activeCategorys);
 
+			List<Panel> panels = panelDao.findAll();
 			System.out.println(panels);
+			
+			List<Panel> panel1 = panelDao.findOne(5);
+			System.out.println(panel1);
 
 		
 		};
