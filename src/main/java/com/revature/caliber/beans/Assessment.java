@@ -33,7 +33,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @Entity
 @Table(name = "CALIBER_ASSESSMENT")
 @Cacheable
-@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class Assessment implements Serializable {
 
 	private static final long serialVersionUID = 5030264218154828822L;
@@ -56,7 +55,6 @@ public class Assessment implements Serializable {
 	@NotNull
 	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
 	@JoinColumn(name = "BATCH_ID", nullable = false)
-	@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 	private Batch batch;
 
 	/**
@@ -82,12 +80,10 @@ public class Assessment implements Serializable {
 	@NotNull
 	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
 	@JoinColumn(name = "ASSESSMENT_CATEGORY", nullable = false)
-	@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 	private Category category;
 
 	@OneToMany(mappedBy = "assessment", cascade = CascadeType.ALL)
 	@JsonIgnore
-	@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 	private Set<Grade> grades = new HashSet<>();
 
 	public Assessment() {

@@ -41,7 +41,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @Entity
 @Table(name = "CALIBER_TRAINEE")
 @Cacheable
-@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class Trainee implements Serializable {
 
 	private static final long serialVersionUID = -9090223980655307018L;
@@ -73,7 +72,6 @@ public class Trainee implements Serializable {
 	@ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
 	@JoinColumn(name = "BATCH_ID", nullable = false)
 	@JsonBackReference(value = "traineeAndBatch")
-	@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 	private Batch batch;
 
 	@Column(name = "PHONE_NUMBER")
@@ -108,17 +106,14 @@ public class Trainee implements Serializable {
 
 	@JsonIgnore
 	@OneToMany(mappedBy = "trainee", cascade = CascadeType.ALL)
-	@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 	private Set<Grade> grades;
 
 	@JsonIgnore
 	@OneToMany(mappedBy = "trainee", cascade = CascadeType.ALL)
-	@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 	private Set<Note> notes;
 	
 	@JsonIgnore
 	@OneToMany(mappedBy = "trainee", cascade = CascadeType.ALL)
-	@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 	@OrderBy(clause = "INTERVIEW_DATE DESC")
 	private Set<Panel> panelInterviews = new TreeSet<>();
 

@@ -33,7 +33,6 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 @Entity
 @Table(name = "CALIBER_PANEL_FEEDBACK")
 @Cacheable
-@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
 public class PanelFeedback {
 
 	@Id

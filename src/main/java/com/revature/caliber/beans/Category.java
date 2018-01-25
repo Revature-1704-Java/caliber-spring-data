@@ -25,7 +25,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 @Entity
 @Table(name = "CALIBER_CATEGORY")
 @Cacheable
-@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
 public class Category implements Serializable {
 
 	private static final long serialVersionUID = 3363756954535297728L;
@@ -47,7 +46,6 @@ public class Category implements Serializable {
 
 	@OneToMany(mappedBy = "category")
 	@JsonIgnore
-	@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
 	private Set<Assessment> assessments;
 
 	/**

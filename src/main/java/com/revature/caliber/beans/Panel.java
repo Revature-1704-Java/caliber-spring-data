@@ -27,7 +27,7 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.revature.caliber.validator.ValidPanel;
+//import com.revature.caliber.validator.ValidPanel;
 
 /**
  * Results of the final panel interview for each associate.
@@ -36,9 +36,8 @@ import com.revature.caliber.validator.ValidPanel;
  */
 @Entity
 @Table(name = "CALIBER_PANEL")
-@ValidPanel
+//@ValidPanel
 @Cacheable
-@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
 public class Panel {
 
 	// Interview Details
@@ -51,13 +50,11 @@ public class Panel {
 	@NotNull
 	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
 	@JoinColumn(name = "TRAINEE_ID", nullable = false)
-	@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 	private Trainee trainee;
 	
 	@NotNull
 	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
 	@JoinColumn(name = "PANELIST_ID", nullable = false)
-	@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 	private Trainer panelist;
 	
 	@Temporal(TemporalType.DATE)
