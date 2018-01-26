@@ -59,9 +59,20 @@ public class GradeDAOTest {
 	@Test
 	public void getGradebyCategoryIdTest() {
 		List<Grade> test = dao.findByCategoryId(1);
-		System.out.println("Number of grades in Category 1:" + test.size() );
+		//System.out.println("Number of grades in Category 1:" + test.size() );
 		for(int i = 0; i < test.size(); i++) {
 			Assert.assertTrue(test.get(i).getAssessment().getCategory().getCategoryId() == 1);
+		}
+		
+	}
+	
+	
+	@Test
+	public void getGradebyBatchIdTest() {
+		List<Grade> test = dao.findByBatchId(2200);
+		//System.out.println("Number of batch in Category 1:" + test.size() );
+		for(int i = 0; i < test.size(); i++) {
+			Assert.assertTrue(test.get(i).getTrainee().getBatch().getBatchId() == 2200);
 		}
 		
 	}

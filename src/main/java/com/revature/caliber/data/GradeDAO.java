@@ -79,5 +79,15 @@ public interface GradeDAO extends JpaRepository<Grade, Integer>{
 	@Query("SELECT g FROM Grade g left join fetch g.assessment a left join fetch a.category c where c.categoryId=?1")
 	public List<Grade> findByCategoryId(Integer categoryId);
 
+	
+	/**
+	 * Returns all grades for a batch. Useful for calculating coarsely-grained
+	 * data for reporting.
+	 * 
+	 * @param batchId
+	 * @return
+	 */
+	@Query("SELECT g FROM Grade g left join fetch g.trainee t left join fetch t.batch b where b.batchId=?1")
+	public List<Grade> findByBatchId(Integer batchId);
 
 }
