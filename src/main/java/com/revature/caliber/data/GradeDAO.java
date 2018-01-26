@@ -18,6 +18,7 @@ import com.revature.caliber.beans.Address;
 import com.revature.caliber.beans.Grade;
 import com.revature.caliber.beans.TrainingStatus;
 
+@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 public interface GradeDAO extends JpaRepository<Grade, Integer>{
 
 	static final Logger log = Logger.getLogger(GradeDAO.class);
@@ -37,7 +38,7 @@ public interface GradeDAO extends JpaRepository<Grade, Integer>{
 	 * @param gradeId
 	 * @return
 	 */
-	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
+	//@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public Grade findByGradeId(long gradeId);
 	
 	
@@ -49,8 +50,8 @@ public interface GradeDAO extends JpaRepository<Grade, Integer>{
 	 * @param assessmentId
 	 * @return
 	 */
-	@SuppressWarnings("unchecked")
-	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
+	//@SuppressWarnings("unchecked")
+	//@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 	public List<Grade> findByAssessmentAssessmentId(Long assessmentId) ;
 	
 	
@@ -61,8 +62,8 @@ public interface GradeDAO extends JpaRepository<Grade, Integer>{
 	 * @param traineeId
 	 * @return
 	 */
-	@SuppressWarnings("unchecked")
-	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
+	//@SuppressWarnings("unchecked")
+	//@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 	public List<Grade> findByTraineeTraineeId(Integer traineeId);
 	
 	
@@ -75,8 +76,8 @@ public interface GradeDAO extends JpaRepository<Grade, Integer>{
 	 */
 //	@SuppressWarnings("unchecked")
 //	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
-//	@Query()
-	//public List<Grade> findByCategoryId(Integer categoryId);
+	@Query("SELECT g FROM Grade g left join fetch g.assessment a left join fetch a.category c where c.categoryId=?1")
+	public List<Grade> findByCategoryId(Integer categoryId);
 
 
 }

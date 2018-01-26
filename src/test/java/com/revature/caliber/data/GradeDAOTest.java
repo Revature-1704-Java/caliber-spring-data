@@ -55,4 +55,14 @@ public class GradeDAOTest {
 			Assert.assertFalse(test.get(i).getTrainee().getTraineeId() == 5353);
 		}
 	}
+	
+	@Test
+	public void getGradebyCategoryIdTest() {
+		List<Grade> test = dao.findByCategoryId(1);
+		System.out.println("Number of grades in Category 1:" + test.size() );
+		for(int i = 0; i < test.size(); i++) {
+			Assert.assertTrue(test.get(i).getAssessment().getCategory().getCategoryId() == 1);
+		}
+		
+	}
 }
