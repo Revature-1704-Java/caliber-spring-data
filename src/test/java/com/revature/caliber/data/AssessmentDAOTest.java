@@ -112,6 +112,11 @@ public class AssessmentDAOTest {
 		for (Assessment a : assessments) {
 			if (a.getBatch().getBatchId() != BATCH_ID || a.getWeek() != WEEK)
 				Assert.fail();
+//			for (Trainee t: a.getBatch().getTrainees()) {
+//				if (t.getTrainingStatus() == TrainingStatus.Dropped) {
+//					Assert.fail("Found Dropped Student: " + t.toString());
+//				}
+//			}
 		}
 		assertFalse(assessments.isEmpty());
 	}

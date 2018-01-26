@@ -11,7 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.revature.caliber.beans.Assessment;
 
 @Repository
-public interface AssessmentDAO extends JpaRepository<Assessment, Integer>{
+public interface AssessmentDAO extends JpaRepository<Assessment, Long> {
 
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	Assessment findByAssessmentId(long id);
@@ -21,7 +21,7 @@ public interface AssessmentDAO extends JpaRepository<Assessment, Integer>{
 
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	List<Assessment> findByBatchBatchId(int id);
-
+	
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	List<Assessment> findByBatchBatchIdAndWeek(int id, short week);
 }
