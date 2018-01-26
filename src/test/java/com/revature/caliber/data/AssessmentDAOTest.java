@@ -21,8 +21,10 @@ import com.revature.caliber.beans.AssessmentType;
 import com.revature.caliber.beans.Batch;
 import com.revature.caliber.beans.Category;
 import com.revature.caliber.beans.Grade;
+import com.revature.caliber.beans.Trainee;
 import com.revature.caliber.beans.Trainer;
 import com.revature.caliber.beans.TrainerRole;
+import com.revature.caliber.beans.TrainingStatus;
 
 @RunWith(SpringRunner.class)
 @DataJpaTest
@@ -108,15 +110,15 @@ public class AssessmentDAOTest {
 
 	@Test
 	public void findByBatchIdAndWeek() {
-		List<Assessment> assessments = dao.findByBatchBatchIdAndWeek(BATCH_ID, WEEK);
+		List<Assessment> assessments = dao.findByBatchIdAndWeek(BATCH_ID, WEEK);
 		for (Assessment a : assessments) {
 			if (a.getBatch().getBatchId() != BATCH_ID || a.getWeek() != WEEK)
 				Assert.fail();
-//			for (Trainee t: a.getBatch().getTrainees()) {
-//				if (t.getTrainingStatus() == TrainingStatus.Dropped) {
-//					Assert.fail("Found Dropped Student: " + t.toString());
-//				}
-//			}
+			for (Trainee t: a.getBatch().getTrainees()) {
+				if (t.getTrainingStatus() == TrainingStatus.Dropped) {
+					Assert.fail("Found Dropped Student: " + t.toString());
+				}
+			}
 		}
 		assertFalse(assessments.isEmpty());
 	}

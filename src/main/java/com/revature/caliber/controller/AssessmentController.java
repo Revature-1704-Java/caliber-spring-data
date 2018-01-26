@@ -1,6 +1,5 @@
 package com.revature.caliber.controller;
 
-import java.util.Iterator;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,8 +14,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.revature.caliber.beans.Assessment;
-import com.revature.caliber.beans.Trainee;
-import com.revature.caliber.beans.TrainingStatus;
 import com.revature.caliber.data.AssessmentDAO;
 
 /**
@@ -67,17 +64,9 @@ public class AssessmentController {
 	@GetMapping(value = "/getAssessment/{batchId}/{week}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<Assessment>> findAssessmentByWeek(@PathVariable Integer batchId,
 			@PathVariable Short week) {
-		List<Assessment> assessments = dao.findByBatchBatchIdAndWeek(batchId, week);
+		List<Assessment> assessments = dao.findByBatchIdAndWeek(batchId, week);
 		if (assessments.isEmpty()) {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-		}
-		for (Assessment a : assessments) {
-			
-			for (Iterator<Trainee> it = a.getBatch().getTrainees().iterator(); it.hasNext();) {
-			    if (it.next().getTrainingStatus() == TrainingStatus.Dropped) {
-			        it.remove();
-			    }
-			}
 		}
 		return new ResponseEntity<>(assessments, HttpStatus.OK);
 	}
