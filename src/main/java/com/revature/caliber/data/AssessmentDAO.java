@@ -17,8 +17,11 @@ public interface AssessmentDAO extends JpaRepository<Assessment, Integer>{
 	Assessment findByAssessmentId(long id);
 
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
-	List<Assessment> findByWeek(short id);
+	List<Assessment> findByWeek(short week);
 
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	List<Assessment> findByBatchBatchId(int id);
+
+	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
+	List<Assessment> findByBatchBatchIdAndWeek(int id, short week);
 }

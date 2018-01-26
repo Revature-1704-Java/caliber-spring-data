@@ -33,6 +33,10 @@ public class AssessmentDAOTest {
 
 	Assessment test;
 
+	static final long ASSESSMENT_ID = 2077;
+	static final short WEEK = 5;
+	static final short BATCH_ID = 2150;
+
 	@Before
 	public void initialize() {
 		test = new Assessment();
@@ -42,9 +46,10 @@ public class AssessmentDAOTest {
 		test.setBatch(batch);
 		test.setRawScore(77);
 		test.setType(AssessmentType.Other);
-		test.setWeek((short) 3);
+		test.setWeek(WEEK);
 		test.setCategory(new Category());
 		test.setGrades(new HashSet<Grade>());
+		
 	}
 
 	@Test
@@ -55,7 +60,7 @@ public class AssessmentDAOTest {
 
 	@Test
 	public void testFindByAssessmentId() {
-		Assessment test = dao.findByAssessmentId(2077);
+		Assessment test = dao.findByAssessmentId(ASSESSMENT_ID);
 		assertFalse(test == null);
 	}
 
@@ -83,9 +88,9 @@ public class AssessmentDAOTest {
 
 	@Test
 	public void findByWeekNumber() {
-		List<Assessment> assessments = dao.findByWeek((short) 5);
+		List<Assessment> assessments = dao.findByWeek(WEEK);
 		for (Assessment a : assessments) {
-			if (a.getWeek() != (short) 5)
+			if (a.getWeek() != WEEK)
 				Assert.fail();
 		}
 		assertFalse(assessments.isEmpty());
@@ -93,9 +98,19 @@ public class AssessmentDAOTest {
 
 	@Test
 	public void findByBatchId() {
-		List<Assessment> assessments = dao.findByBatchBatchId(2050);
+		List<Assessment> assessments = dao.findByBatchBatchId(BATCH_ID);
 		for (Assessment a : assessments) {
-			if (a.getBatch().getBatchId() != 2050)
+			if (a.getBatch().getBatchId() != BATCH_ID)
+				Assert.fail();
+		}
+		assertFalse(assessments.isEmpty());
+	}
+
+	@Test
+	public void findByBatchIdAndWeek() {
+		List<Assessment> assessments = dao.findByBatchBatchIdAndWeek(BATCH_ID, WEEK);
+		for (Assessment a : assessments) {
+			if (a.getBatch().getBatchId() != BATCH_ID || a.getWeek() != WEEK)
 				Assert.fail();
 		}
 		assertFalse(assessments.isEmpty());
