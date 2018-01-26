@@ -8,6 +8,7 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -79,5 +80,19 @@ public class AssessmentDAOTest {
 		dao.delete(savedTest);
 		assertNull(dao.findByAssessmentId(savedTest.getAssessmentId()));
 	}
+
+	@Test
+	public void findByWeekNumber() {
+		List<Assessment> assessments = dao.findByWeek((short) 5);
+		for (Assessment a : assessments) {
+			if (a.getWeek() != (short) 5) Assert.fail();
+		}
+		assertFalse(assessments.isEmpty());
+	}
+
+	// @Test
+	// public void findByBatchId() {
+	//
+	// }
 
 }
