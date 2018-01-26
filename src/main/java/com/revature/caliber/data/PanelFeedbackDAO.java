@@ -29,13 +29,13 @@ public interface PanelFeedbackDAO extends JpaRepository<PanelFeedback, Integer>{
 	@Query("SELECT DISTINCT pf FROM PanelFeedback pf")
 	List<PanelFeedback> findAll();
 	
-	@Query("SELECT DISTINCT pf FROM PanelFeedback pf") //WHERE pf.panel.id= ?1")
+	@Query("SELECT DISTINCT pf FROM PanelFeedback pf WHERE pf.panel.id= ?1")
 	List<PanelFeedback> findAllForPanel(int panelId);
 	
 	@Query("SELECT DISTINCT pf FROM PanelFeedback pf WHERE pf.panel.id= ?1 and pf.status='Repanel'")
 	List<PanelFeedback> findFailedFeedbackByPanel(Panel panel);
 	
-	//@Query()
-	//PanelFeedback findOne(long panelFeedbackId);
+	@Query("SELECT DISTINCT pf FROM PanelFeedback pf WHERE pf.panel.id= ?1")
+	PanelFeedback findOne(long panelFeedbackId);
 
 }
