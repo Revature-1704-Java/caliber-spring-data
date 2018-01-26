@@ -9,6 +9,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
 import com.revature.caliber.beans.Address;
+import com.revature.caliber.beans.Category;
 import com.revature.caliber.beans.Note;
 import com.revature.caliber.data.AddressDAO;
 import com.revature.caliber.data.NoteDAO;
@@ -21,9 +22,9 @@ import com.revature.caliber.data.GradeDAO;
 public class CaliberSpringDataApplication {
 	
 	@Autowired
-	private CategoryDAO catDao;
-	@Autowired
 	private AddressDAO aDao;
+	@Autowired
+	private CategoryDAO catDao;
 	@Autowired
 	private NoteDAO nDao;
 	@Autowired 
