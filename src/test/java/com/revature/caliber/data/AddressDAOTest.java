@@ -1,6 +1,6 @@
 package com.revature.caliber.data;
 
-import static org.junit.Assert.assertNull;
+import static org.junit.Assert.*;
 
 import java.util.List;
 
