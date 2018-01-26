@@ -51,7 +51,6 @@ public class PanelFeedbackDAOTest {
 		panelId = -789;
 		actual = dao.findAllForPanel(panelId).size();
 		expected = jdbcTemplate.queryForObject(PANEL_FEEDBACK_COUNT_ID + panelId, Integer.class);
-
 		assertEquals(expected, actual);
 	}
 	/*

@@ -15,7 +15,7 @@ import com.revature.caliber.beans.PanelStatus;
 
 @Repository
 @Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
-public interface PanelFeedbackDAO extends JpaRepository<PanelFeedback, Integer>{
+public interface PanelFeedbackDAO extends JpaRepository<PanelFeedback, Long>{
 	
 	/*
 	 * findAll distinct
@@ -34,8 +34,4 @@ public interface PanelFeedbackDAO extends JpaRepository<PanelFeedback, Integer>{
 	
 	@Query("SELECT DISTINCT pf FROM PanelFeedback pf WHERE pf.panel.id= ?1 and pf.status='Repanel'")
 	List<PanelFeedback> findFailedFeedbackByPanel(Panel panel);
-	
-	@Query("SELECT DISTINCT pf FROM PanelFeedback pf WHERE pf.panel.id= ?1")
-	PanelFeedback findOne(long panelFeedbackId);
-
 }
