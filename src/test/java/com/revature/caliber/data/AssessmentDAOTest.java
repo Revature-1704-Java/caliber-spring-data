@@ -90,20 +90,25 @@ public class AssessmentDAOTest {
 
 	@Test
 	public void findByWeekNumber() {
-		List<Assessment> assessments = dao.findByWeek(WEEK);
+		List<Assessment> assessments = dao.findDistinctByWeek(WEEK);
 		for (Assessment a : assessments) {
 			if (a.getWeek() != WEEK)
-				Assert.fail();
+				Assert.fail("week Number does not match: " + a.toString());
 		}
 		assertFalse(assessments.isEmpty());
 	}
 
 	@Test
 	public void findByBatchId() {
-		List<Assessment> assessments = dao.findByBatchBatchId(BATCH_ID);
+		List<Assessment> assessments = dao.findDistinctByBatchBatchId(BATCH_ID);
 		for (Assessment a : assessments) {
 			if (a.getBatch().getBatchId() != BATCH_ID)
-				Assert.fail();
+				Assert.fail("batchId does not match: " + a.toString());
+			for (Trainee t: a.getBatch().getTrainees()) {
+				if (t.getTrainingStatus() == TrainingStatus.Dropped) {
+					Assert.fail("Found Dropped Student: " + t.toString());
+				}
+			}
 		}
 		assertFalse(assessments.isEmpty());
 	}
@@ -112,8 +117,10 @@ public class AssessmentDAOTest {
 	public void findByBatchIdAndWeek() {
 		List<Assessment> assessments = dao.findByBatchIdAndWeek(BATCH_ID, WEEK);
 		for (Assessment a : assessments) {
-			if (a.getBatch().getBatchId() != BATCH_ID || a.getWeek() != WEEK)
-				Assert.fail();
+			if (a.getBatch().getBatchId() != BATCH_ID)
+				Assert.fail("batchId does not match: " + a.toString());
+			else if (a.getWeek() != WEEK)
+				Assert.fail("week Number does not match: " + a.toString());
 			for (Trainee t: a.getBatch().getTrainees()) {
 				if (t.getTrainingStatus() == TrainingStatus.Dropped) {
 					Assert.fail("Found Dropped Student: " + t.toString());

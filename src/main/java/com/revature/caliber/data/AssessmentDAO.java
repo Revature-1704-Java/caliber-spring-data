@@ -18,10 +18,11 @@ public interface AssessmentDAO extends JpaRepository<Assessment, Long> {
 	Assessment findByAssessmentId(long id);
 
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
-	List<Assessment> findByWeek(short week);
+	List<Assessment> findDistinctByWeek(short week);
 
+	@Query("select distinct a from Assessment a left join fetch a.batch b left join fetch b.trainees t where b.batchId = ?1 and t.trainingStatus<>com.revature.caliber.beans.TrainingStatus.Dropped or t.trainingStatus is null")
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
-	List<Assessment> findByBatchBatchId(int id);
+	List<Assessment> findDistinctByBatchBatchId(int id);
 
 	@Query("select distinct a from Assessment a left join fetch a.batch b left join fetch b.trainees t where b.batchId = ?1 and a.week = ?2 and t.trainingStatus<>com.revature.caliber.beans.TrainingStatus.Dropped or t.trainingStatus is null")
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
