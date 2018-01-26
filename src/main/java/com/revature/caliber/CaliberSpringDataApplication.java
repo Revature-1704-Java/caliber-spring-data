@@ -34,7 +34,7 @@ public class CaliberSpringDataApplication {
 		return args -> {
 			List<Address> addresses = aDao.findAll();
 			Address a = aDao.findByAddressId(1);
-			List<Note> notes = nDao.findByTraineeTraineeId(5503);
+			List<Note> notes = nDao.findAllPublicIndividualNotes(5503);
 			
 			System.out.println(addresses);
 			System.out.println(a);
