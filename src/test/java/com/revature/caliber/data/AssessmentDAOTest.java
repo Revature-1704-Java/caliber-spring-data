@@ -85,14 +85,19 @@ public class AssessmentDAOTest {
 	public void findByWeekNumber() {
 		List<Assessment> assessments = dao.findByWeek((short) 5);
 		for (Assessment a : assessments) {
-			if (a.getWeek() != (short) 5) Assert.fail();
+			if (a.getWeek() != (short) 5)
+				Assert.fail();
 		}
 		assertFalse(assessments.isEmpty());
 	}
 
-	// @Test
-	// public void findByBatchId() {
-	//
-	// }
-
+	@Test
+	public void findByBatchId() {
+		List<Assessment> assessments = dao.findByBatchBatchId(2050);
+		for (Assessment a : assessments) {
+			if (a.getBatch().getBatchId() != 2050)
+				Assert.fail();
+		}
+		assertFalse(assessments.isEmpty());
+	}
 }
