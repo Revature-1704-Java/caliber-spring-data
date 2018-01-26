@@ -14,6 +14,9 @@ import com.revature.caliber.beans.Trainer;
 @Repository
 public interface TrainerDAO extends JpaRepository<Trainer, Long> {
 
+	@Query("select distinct t from Trainer t where t.tier<>com.revature.caliber.beans.TrainerRole.ROLE_INACTIVE")
+	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
+	List<Trainer> findAll();
 
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	Trainer findByTrainerId(int id);

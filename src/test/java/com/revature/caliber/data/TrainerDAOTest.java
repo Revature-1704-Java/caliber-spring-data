@@ -7,6 +7,7 @@ import static org.junit.Assert.assertNull;
 import java.util.List;
 
 import org.apache.log4j.Logger;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -44,24 +45,28 @@ public class TrainerDAOTest {
 	@Test
 	public void testFindAll() {
 		log.info("Getting All Trainers");
-		List<Trainer> test = dao.findAll();
-		assertFalse(test.isEmpty());
+		List<Trainer> trainers = dao.findAll();
+		for (Trainer t : trainers) {
+			if(t.getTier() == TrainerRole.ROLE_INACTIVE)
+				Assert.fail("Found Inactive Trainer: " + t.toString());
+		}
+		assertFalse(trainers.isEmpty());
 	}
-	
+
 	@Test
 	public void findByTrainerId() {
 		log.info("Getting by trainerId");
 		Trainer trainer = dao.findByTrainerId(trainerId);
 		assertEquals(trainerId, trainer.getTrainerId());
 	}
-	
+
 	@Test
 	public void addTrainer() {
 		log.info("Adding Trainer");
 		Trainer savedTrainer = dao.save(test);
 		assertEquals(test.getTrainerId(), savedTrainer.getTrainerId());
 	}
-	
+
 	@Test
 	public void updateTrainer() {
 		log.info("Updating Trainer");
@@ -70,7 +75,7 @@ public class TrainerDAOTest {
 		Trainer updatedTrainer = dao.save(savedTrainer);
 		assertEquals(savedTrainer.getTitle(), updatedTrainer.getTitle());
 	}
-	
+
 	@Test
 	public void deleteTrainer() {
 		log.info("Deleting Trainer");
@@ -78,14 +83,14 @@ public class TrainerDAOTest {
 		dao.delete(savedTrainer);
 		assertNull(dao.findByTrainerId(savedTrainer.getTrainerId()));
 	}
-	
+
 	@Test
 	public void findAllTrainerTitles() {
 		log.info("Getting All Trainer Titles");
 		List<String> titles = dao.findAllTrainerTitles();
 		assertFalse(titles.isEmpty());
 	}
-	
+
 	@Test
 	public void findByEmail() {
 		log.info("Getting Trainer by Email");
