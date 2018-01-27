@@ -57,10 +57,7 @@ public class CategoryDAOTest {
 		assertTrue(dao.findOne(1) instanceof Category);
 		assertEquals(dao.findOne(1).toString(), "Java");
 	}
-	/**
-	 * Tests methods:
-	 * @see com.revature.caliber.data.CategoryDAO.update()
-	 */
+	
 	@Test
 	public void update() {
 		log.info("Testing update from CategoryDAO");
@@ -70,17 +67,15 @@ public class CategoryDAOTest {
 		dao.save(myCat);
 		assertEquals(skillName, myCat.getSkillCategory());
 	}
-	/**
-	 * Tests methods:
-	 * @see com.revature.caliber.data.CategoryDAO.save()
-	 */
+	
 	@Test
 	public void save() {
 		log.info("Testing save method from CategoryDAO");
 		Category newCat = new Category("Underwater Basket Weaving", false);
 		Long before = jdbcTemplate.queryForObject(CATEGORY_COUNT, Long.class);
-		dao.save(newCat);
+		dao.saveAndFlush(newCat);
 		Long after = jdbcTemplate.queryForObject(CATEGORY_COUNT, Long.class);
+		System.out.println("before " +before +" after " +after);
 		assertEquals(++before, after);
 	}
 }
