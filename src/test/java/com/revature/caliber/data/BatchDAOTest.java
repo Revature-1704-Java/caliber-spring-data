@@ -91,11 +91,11 @@ public class BatchDAOTest {
 		assertTrue(active);
 	}
 	@Test
-	public void BatchDAO_findAllCurrentWithId(){
+	public void BatchDAO_findAllCurrentWithNotesAndTrainees(){
 		ZonedDateTime now =ZonedDateTime.now();
 		ZonedDateTime aMonthAgo= now.minusMonths(1);
 		List<Batch> test = dao.findAllCurrent(1);
-		test.forEach(x->System.out.println(x.getTrainer().getTrainerId()));
+//		test.forEach(x->System.out.println(x.getTrainer().getTrainerId()));
 		boolean active=test.stream().map(
 				x->x.getEndDate().after(Date.from(now.toInstant()))
 				&&x.getStartDate().after(Date.from(aMonthAgo.toInstant()))
