@@ -1,33 +1,12 @@
 package com.revature.caliber;
 
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
-import com.revature.caliber.beans.Address;
-import com.revature.caliber.beans.Note;
-import com.revature.caliber.data.AddressDAO;
-import com.revature.caliber.data.NoteDAO;
-import com.revature.caliber.beans.Category;
-import com.revature.caliber.data.CategoryDAO;
-import com.revature.caliber.beans.Panel;
-import com.revature.caliber.data.PanelDAO;
-
 @SpringBootApplication
 public class CaliberSpringDataApplication {
-	
-	@Autowired
-	private CategoryDAO catDao;
-	@Autowired
-	private AddressDAO aDao;
-	@Autowired
-	private NoteDAO nDao;
-	@Autowired
-	private PanelDAO panelDao;
 
 	public static void main(String[] args) {
 		SpringApplication.run(CaliberSpringDataApplication.class, args);
@@ -36,28 +15,16 @@ public class CaliberSpringDataApplication {
 	@Bean
 	public CommandLineRunner runner() {
 		return args -> {
-			List<Address> addresses = aDao.findAll();
-			System.out.println(addresses);
-
-			Address a = aDao.findByAddressId(1);
-			System.out.println(a);
-
-			List<Note> notes = nDao.findByTraineeTraineeId(5503);
-			System.out.println(notes);
+//			Panel panelSave = panelDao.save();
+//			System.out.println(panelSave);
 			
-			List<Category> categorys = catDao.findAll();
-			System.out.println(categorys);
-			
-			List<Category> activeCategorys = catDao.findAllActive();
-			System.out.println(activeCategorys);
+//			List<Panel> panelUpdate = panelDao.update((Panel) panelByPanelId);
+//			System.out.println(panelUpdate);
 
-			List<Panel> panels = panelDao.findAll();
-			System.out.println(panels);
-			
-			List<Panel> panel1 = panelDao.findOne(5);
-			System.out.println(panel1);
-
-		
+//			for(Trainee t : panelTraineesAndPanelsPerBatch) {
+//				for(Panel p : t.getPanelInterviews())
+//					System.out.println(p);
+//			}
 		};
 	}
 }
