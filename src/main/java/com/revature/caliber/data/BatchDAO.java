@@ -26,7 +26,7 @@ public interface BatchDAO extends JpaRepository<Batch, Integer>, BatchDAOCustom{
 	public List<Batch> findAll();
 	@Query("select distinct b from Batch b where b.trainer.trainerId=:id "
 			+ "or b.coTrainer.trainerId=:id order by b.startDate desc")
-	public List<Batch>findAllByTrainerOrCoTrainerId(@Param("id") int trainerId);
+	public List<Batch>findAllByTrainer(@Param("id") int trainerId);
 //	//SessionFactory sessionFactory;
 //	/**
 //	 * Looks for all batches where the user was the trainer or co-trainer.

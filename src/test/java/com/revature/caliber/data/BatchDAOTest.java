@@ -45,12 +45,16 @@ public class BatchDAOTest {
 		boolean Nodrop=test.stream()
 				.map(b -> b.getTrainees().stream().map(t->t.getTrainingStatus()!=TrainingStatus.Dropped)
 						.reduce(true, (acc,curr)->acc&&curr)).reduce(true,(a,b)->a&&b);
+//		for(int i=0;i<test.size();i++){
+//			System.out.println("new batch");
+//			test.get(i).getTrainees().forEach(x->System.out.println(x.getTrainingStatus()));
+//		}
 		assertTrue(Nodrop);
 		assertEquals(13, test.size());
 	}
 	@Test
 	public void BatchDAO_findAllByTrainerOrCoTrainerId(){
-		List<Batch> test=dao.findAllByTrainerOrCoTrainerId(1);
+		List<Batch> test=dao.findAllByTrainer(1);
 		assertEquals(6,test.size());
 	}
 	@Test
@@ -61,14 +65,13 @@ public class BatchDAOTest {
 		int id=(int) entityManager.persistAndGetId(test1);
 		entityManager.flush();
 		Batch newTest = entityManager.find(Batch.class, id);
-		System.out.println(newTest.toString());
 		dao.delete(newTest);
 		assertThat(entityManager.find(Batch.class, id), nullValue());
 	}
 	@Test
 	public void BatchDAO_update(){
 		Trainer trainer1= new Trainer("Sideshow Bob", "Clown", "killbart@kill", TrainerRole.ROLE_TRAINER );
-		int trainer_id=	(int) entityManager.persistAndGetId(trainer1);
+		entityManager.persist(trainer1);
 		entityManager.flush();
 		Batch testBatch = dao.findOne(2050);
 		testBatch.setTrainer(trainer1);
@@ -80,9 +83,22 @@ public class BatchDAOTest {
 	public void BatchDAO_findAllCurrent(){
 		ZonedDateTime now =ZonedDateTime.now();
 		ZonedDateTime aMonthAgo= now.minusMonths(1);
-		List<Batch> test = dao.getAllCurrent();
+		List<Batch> test = dao.findAllCurrent();
 		boolean active=test.stream().map(
-				x->x.getEndDate().after(Date.from(now.toInstant()))&&x.getStartDate().after(Date.from(aMonthAgo.toInstant()))
+				x->x.getEndDate().after(Date.from(now.toInstant()))
+				&&x.getStartDate().after(Date.from(aMonthAgo.toInstant()))
+				).reduce(true,(acc,curr)->acc&&curr);
+		assertTrue(active);
+	}
+	@Test
+	public void BatchDAO_findAllCurrentWithId(){
+		ZonedDateTime now =ZonedDateTime.now();
+		ZonedDateTime aMonthAgo= now.minusMonths(1);
+		List<Batch> test = dao.findAllCurrent(1);
+		test.forEach(x->System.out.println(x.getTrainer().getTrainerId()));
+		boolean active=test.stream().map(
+				x->x.getEndDate().after(Date.from(now.toInstant()))
+				&&x.getStartDate().after(Date.from(aMonthAgo.toInstant()))
 				).reduce(true,(acc,curr)->acc&&curr);
 		assertTrue(active);
 	}
