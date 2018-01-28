@@ -86,4 +86,19 @@ public class GradeDAOTest {
 		}
 		
 	}
+	
+	
+	
+	@Test
+	public void getGradebyBatchAndWeekTest() {
+		Short s = 1;
+
+		List<Grade> test = dao.findByWeek(2200, s);
+		//System.out.println("Number of batch in Category 1:" + test.size() );
+		for(int i = 0; i < test.size(); i++) {
+			Assert.assertTrue(test.get(i).getAssessment().getBatch().getBatchId() == 2200);
+			Assert.assertTrue(test.get(i).getAssessment().getWeek() == (short)1);
+		}
+	}
+	
 }

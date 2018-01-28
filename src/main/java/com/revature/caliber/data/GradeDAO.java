@@ -101,5 +101,19 @@ public interface GradeDAO extends JpaRepository<Grade, Integer>{
 	 */
 	@Query("SELECT g FROM Grade g left join fetch g.trainee t left join fetch t.batch b left join fetch b.trainer r where r.trainerId=?1")
 	public List<Grade> findByTrainerId(Integer trainerId);
+	
+	
+	
+	/**
+	 * Returns grades for all trainees in the batch on a given week. Used to
+	 * load grade data onto the input spreadsheet, as well as tabular/chart
+	 * reporting.
+	 * 
+	 * @param batchId
+	 * @param week
+	 * @return
+	 */
+	@Query("SELECT g FROM Grade g left join fetch g.assessment a left join fetch a.batch b where b.batchId=?1 And a.week=?2")
+	public List<Grade> findByWeek(Integer batchId, Short week);
 
 }
