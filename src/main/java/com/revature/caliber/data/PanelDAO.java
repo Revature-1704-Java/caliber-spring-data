@@ -31,7 +31,7 @@ public interface PanelDAO extends JpaRepository<Panel, Integer> {
 
 	/* find panels in the last 14 days NO DATA TO TEST ON */
 	@Query("FROM Panel p WHERE p.interviewDate >= TRUNC(SYSDATE) - 13")
-	List<Panel> findBiWeeklyPanels();
+	List<Panel> findRecentPanels();
 	
 	/* Convenience method 
 	 * save a panel */
