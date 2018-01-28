@@ -76,4 +76,14 @@ public class GradeDAOTest {
 		}
 		
 	}
+	
+	@Test
+	public void getGradebyTrainerIdTest() {
+		List<Grade> test = dao.findByTrainerId(1);
+		//System.out.println("Number of batch in Category 1:" + test.size() );
+		for(int i = 0; i < test.size(); i++) {
+			Assert.assertTrue(test.get(i).getTrainee().getBatch().getTrainer().getTrainerId() == 1);
+		}
+		
+	}
 }

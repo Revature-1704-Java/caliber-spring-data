@@ -89,5 +89,17 @@ public interface GradeDAO extends JpaRepository<Grade, Integer>{
 	 */
 	@Query("SELECT g FROM Grade g left join fetch g.trainee t left join fetch t.batch b where b.batchId=?1")
 	public List<Grade> findByBatchId(Integer batchId);
+	
+	/**
+	 * Returns all grades issued as acting trainer or cotrainer to a batch.
+	 * Useful for calculating coarsely-grained data for reporting. Potential
+	 * refactor here.. this queries database twice where we could find way to
+	 * simply join.
+	 * 
+	 * @param trainerId
+	 * @return
+	 */
+	@Query("SELECT g FROM Grade g left join fetch g.trainee t left join fetch t.batch b left join fetch b.trainer r where r.trainerId=?1")
+	public List<Grade> findByTrainerId(Integer trainerId);
 
 }
