@@ -32,11 +32,19 @@ public class BatchDAOTest {
 	public void BatchDAO_findOne(){
 		Batch test1 = new Batch("Java", new Trainer("Sideshow Bob", "Clown", "killbart@kill", TrainerRole.ROLE_TRAINER ),new Date((long)1513054800000.0), new Date((long) 1516895781338.0), "Reston");
 		int id=(int) entityManager.persistAndGetId(test1);
+		Trainee subject =new Trainee("Bart Simpson", "resourceId", "String@email", test1);
+		subject.setTrainingStatus(TrainingStatus.Dropped);
+		int testid=(int) entityManager.persistAndGetId(subject);
+		System.out.println(test1.getBatchId());
 		entityManager.flush();
-		
 		Batch get= dao.findOne(id);
+		System.out.println(get.getTrainees());
+		boolean Nodrop=get.getTrainees().stream().map(
+				t->t.getTrainingStatus()!=TrainingStatus.Dropped)
+				.reduce(true,(acc,curr)->acc&&curr);
 		Assert.assertThat(get,isA(Batch.class));
 		assertTrue(get.getBatchId()==id);
+		assertTrue(Nodrop);
 	}
 	
 	@Test
@@ -84,22 +92,85 @@ public class BatchDAOTest {
 		ZonedDateTime now =ZonedDateTime.now();
 		ZonedDateTime aMonthAgo= now.minusMonths(1);
 		List<Batch> test = dao.findAllCurrent();
+//		for(int i=0;i<test.size();i++){
+//		System.out.println("new batch");
+//		test.get(i).getTrainees().forEach(x->System.out.println(x.getTrainingStatus()));
+//	}
+		boolean Nodrop=test.stream()
+				.map(b -> b.getTrainees().stream().map(t->t.getTrainingStatus()!=TrainingStatus.Dropped)
+						.reduce(true, (acc,curr)->acc&&curr)).reduce(true,(a,b)->a&&b);
 		boolean active=test.stream().map(
 				x->x.getEndDate().after(Date.from(now.toInstant()))
 				&&x.getStartDate().after(Date.from(aMonthAgo.toInstant()))
 				).reduce(true,(acc,curr)->acc&&curr);
 		assertTrue(active);
+		assertTrue(Nodrop);
+	}
+	@Test
+	public void BatchDAO_findAllCurrentWithTrainerId(){
+		ZonedDateTime now =ZonedDateTime.now();
+		ZonedDateTime aMonthAgo= now.minusMonths(1);
+		List<Batch> test = dao.findAllCurrent(1);
+		boolean Nodrop=test.stream()
+				.map(b -> b.getTrainees().stream().map(t->t.getTrainingStatus()!=TrainingStatus.Dropped)
+						.reduce(true, (acc,curr)->acc&&curr)).reduce(true,(a,b)->a&&b);
+		boolean active=test.stream().map(
+				x->x.getEndDate().after(Date.from(now.toInstant()))
+				&&x.getStartDate().after(Date.from(aMonthAgo.toInstant()))
+				).reduce(true,(acc,curr)->acc&&curr);
+		assertTrue(active);
+		assertTrue(Nodrop);
 	}
 	@Test
 	public void BatchDAO_findAllCurrentWithNotesAndTrainees(){
 		ZonedDateTime now =ZonedDateTime.now();
 		ZonedDateTime aMonthAgo= now.minusMonths(1);
-		List<Batch> test = dao.findAllCurrent(1);
-//		test.forEach(x->System.out.println(x.getTrainer().getTrainerId()));
+		List<Batch> test = dao.findAllCurrentWithNotesAndTrainees();
+		boolean qcFeedback=test.stream().map(
+				x->x.getNotes().stream().map(n->n.isQcFeedback()).reduce(true,(a,b)->a&&b))
+				.reduce(true, (acc,curr)->acc&&curr);
 		boolean active=test.stream().map(
 				x->x.getEndDate().after(Date.from(now.toInstant()))
 				&&x.getStartDate().after(Date.from(aMonthAgo.toInstant()))
 				).reduce(true,(acc,curr)->acc&&curr);
+		assertTrue(active);
+		assertTrue(qcFeedback);
+	}
+	@Test
+	public void BatchDAO_findAllCurrentWithNotes(){
+		ZonedDateTime now =ZonedDateTime.now();
+		ZonedDateTime aMonthAgo= now.minusMonths(1);
+		List<Batch> test = dao.findAllCurrentWithNotes();
+		boolean qcFeedback=test.stream().map(
+				x->x.getNotes().stream().map(n->n.isQcFeedback()).reduce(true,(a,b)->a&&b))
+				.reduce(true, (acc,curr)->acc&&curr);
+		boolean active=test.stream().map(
+				x->x.getEndDate().after(Date.from(now.toInstant()))
+				&&x.getStartDate().after(Date.from(aMonthAgo.toInstant()))
+				).reduce(true,(acc,curr)->acc&&curr);
+		assertTrue(active);
+		assertTrue(qcFeedback);
+	}
+	@Test
+	public void BatchDAO_findAllCurrentWithTrainee(){
+		ZonedDateTime now =ZonedDateTime.now();
+		ZonedDateTime aMonthAgo= now.minusMonths(1);
+		List<Batch> test = dao.findAllCurrentWithTrainees();
+		boolean active=test.stream().map(
+				x->x.getEndDate().after(Date.from(now.toInstant()))
+				&&x.getStartDate().after(Date.from(aMonthAgo.toInstant()))
+				).reduce(true,(acc,curr)->acc&&curr);
+		boolean Nodrop=test.stream()
+				.map(b -> b.getTrainees().stream().map(t->t.getTrainingStatus()!=TrainingStatus.Dropped)
+						.reduce(true, (acc,curr)->acc&&curr)).reduce(true,(a,b)->a&&b);
+		boolean grade_over_zero=test.stream()
+				.map(b -> b.getTrainees().stream().map(
+						t->t.getGrades().stream().map(
+							g->g.getScore()>0.0).reduce(true,(sa,s)->sa&&s))
+						.reduce(true, (acc,curr)->acc&&curr))
+				.reduce(true,(a,b)->a&&b);
+		assertTrue(grade_over_zero);
+		assertTrue(Nodrop);
 		assertTrue(active);
 	}
 }
