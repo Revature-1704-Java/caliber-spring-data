@@ -50,15 +50,16 @@ public class GradeDAOTest {
 	@Test
 	public void findAllGradeTest() {
 		List<Grade> test = dao.findAll();
-		Assert.assertTrue(!test.isEmpty());
+		Assert.assertTrue(test.isEmpty());
 	}
 	
 	
 	@Test
 	public void getGradebyIdTest() {
-		Grade test = dao.findByGradeId(1077L);
-		//System.out.println(test.getScore());
-		Assert.assertTrue(test.getScore() == 93.86);
+		long l = 1077;
+		Grade test = dao.findByGradeId(l);
+		//System.out.println(test.getGradeId());
+		Assert.assertEquals(test.getGradeId(), l);
 	}
 	
 	
@@ -72,7 +73,7 @@ public class GradeDAOTest {
 	}
 	
 	@Test
-	public void getGradebyTraineeTest() {
+	public void getGradebyTraineeIdTest() {
 		List<Grade> test = dao.findByTraineeTraineeId(5354);
 		Assert.assertTrue(!test.isEmpty());
 		for(int i = 0; i < test.size(); i++) {
