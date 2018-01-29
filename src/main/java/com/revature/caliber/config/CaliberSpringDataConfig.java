@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Configuration;
 
 import oracle.jdbc.pool.OracleDataSource;
 
-@Configuration
+//@Configuration
 public class CaliberSpringDataConfig {
 	@Bean
 	public DataSource dataSource() throws Exception {
