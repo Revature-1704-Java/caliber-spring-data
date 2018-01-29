@@ -1,8 +1,5 @@
 package com.revature.caliber;
 
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -45,14 +42,13 @@ public class CaliberSpringDataApplication {
 			
 			List<Category> categorys = catDao.findAll();
 			System.out.println(categorys);
-			
-			List<Category> activeCategorys = catDao.findAllActive();
-			System.out.println(activeCategorys);
-			
-			//List<Grade> grades = gDao.findAll();
-			//System.out.println(grades);
-			//Grade test = gDao.findByGradeId(1077L);
-			//System.out.println(test.getScore());
+//			List<Panel> panelUpdate = panelDao.update((Panel) panelByPanelId);
+//			System.out.println(panelUpdate);
+
+//			for(Trainee t : panelTraineesAndPanelsPerBatch) {
+//				for(Panel p : t.getPanelInterviews())
+//					System.out.println(p);
+//			}
 		};
 	}
 }
