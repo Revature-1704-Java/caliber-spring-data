@@ -4,6 +4,7 @@ import static org.junit.Assert.assertNull;
 
 import java.util.List;
 
+import org.apache.log4j.Logger;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -17,10 +18,35 @@ import com.revature.caliber.beans.Grade;
 @DataJpaTest
 
 public class GradeDAOTest {
+	
+	
+	private static final Logger log = Logger.getLogger(GradeDAOTest.class);
+	
+	private static final int TEST_ASSESSMENT_ID = 2063;
+	private static final double TEST_NEW_SCORE = 27.66;
+	private static final double FLOATING_NUMBER_VARIANCE = .01;
+	private static final int TEST_TRAINEE_ID = 5529;
+	private static final int TEST_BATCH_ID = 2150;
+	private static final int TEST_CATEGORY_ID = 12;
+	private static final int TEST_TRAINER_ID = 1;
+	private static final int TEST_ASSESSMENT_WEEK = 7;
+	
 	@Autowired
     private TestEntityManager entityManager;
 	@Autowired
 	GradeDAO dao;
+	//@Autowired
+	//private TraineeDAO traineeDAO;
+	//@Autowired
+	//private BatchDAO batchDAO;
+	@Autowired
+	private CategoryDAO categoryDAO;
+	@Autowired
+	private AssessmentDAO assessmentDAO;
+	//@Autowired
+	//private TrainerDAO trainerDAO;
+	
+	
 	@Test
 	public void findAllGradeTest() {
 		List<Grade> test = dao.findAll();
@@ -100,5 +126,7 @@ public class GradeDAOTest {
 			Assert.assertTrue(test.get(i).getAssessment().getWeek() == (short)1);
 		}
 	}
+	
+	
 	
 }
