@@ -1,10 +1,7 @@
 package com.revature.caliber.data;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
-
-import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.junit.Test;
@@ -14,8 +11,6 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.context.junit4.SpringRunner;
-
-import com.revature.caliber.beans.PanelFeedback;
 
 @RunWith(SpringRunner.class)
 @DataJpaTest
