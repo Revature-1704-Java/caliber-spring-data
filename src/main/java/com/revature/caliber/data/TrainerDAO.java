@@ -12,7 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.revature.caliber.beans.Trainer;
 
 @Repository
-public interface TrainerDAO extends JpaRepository<Trainer, Long> {
+public interface TrainerDAO extends JpaRepository<Trainer, Integer> {
 
 	@Query("select distinct t from Trainer t where t.tier<>com.revature.caliber.beans.TrainerRole.ROLE_INACTIVE")
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
