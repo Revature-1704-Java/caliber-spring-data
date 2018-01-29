@@ -21,14 +21,6 @@ import com.revature.caliber.beans.Note;
 public interface NoteDAO extends JpaRepository<Note, Integer> {
 	
 	/**
-	 * Saves a Note to the database
-	 * @param note The note to save to the database
-	 * @return The Note that was saved to the database 
-	 */
-	@SuppressWarnings("unchecked")
-	Note save(Note note);
-	
-	/**
 	 * Returns all Trainer-written, Batch-level Notes for a given week.
 	 * @param batchId The batchId that identifies the Batch
 	 * @param week The week for which the Batch's note will be retrieved
