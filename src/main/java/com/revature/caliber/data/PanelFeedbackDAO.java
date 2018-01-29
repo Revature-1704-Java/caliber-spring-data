@@ -26,6 +26,7 @@ public interface PanelFeedbackDAO extends JpaRepository<PanelFeedback, Long>{
 	 * update -auto
 	 * delete - auto
 	 */
+	
 	@Query("SELECT DISTINCT pf FROM PanelFeedback pf")
 	List<PanelFeedback> findAll();
 	
