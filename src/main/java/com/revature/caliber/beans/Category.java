@@ -32,7 +32,7 @@ public class Category implements Serializable {
 	@Id
 	@Column(name = "CATEGORY_ID")
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "CATEGORY_ID_SEQUENCE")
-	@SequenceGenerator(name = "CATEGORY_ID_SEQUENCE", sequenceName = "CATEGORY_ID_SEQUENCE")
+	@SequenceGenerator(name = "CATEGORY_ID_SEQUENCE", sequenceName = "CATEGORY_ID_SEQUENCE", initialValue = 1, allocationSize = 1)
 	@JsonProperty(value = "categoryId")
 	private int categoryId;
 

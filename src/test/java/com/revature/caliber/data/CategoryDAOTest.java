@@ -75,7 +75,6 @@ public class CategoryDAOTest {
 		Long before = jdbcTemplate.queryForObject(CATEGORY_COUNT, Long.class);
 		dao.saveAndFlush(newCat);
 		Long after = jdbcTemplate.queryForObject(CATEGORY_COUNT, Long.class);
-		System.out.println("before " +before +" after " +after);
 		assertEquals(++before, after);
 	}
 }

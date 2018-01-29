@@ -8,6 +8,7 @@ import static org.junit.Assert.assertNull;
 import java.util.List;
 
 import org.apache.log4j.Logger;
+import org.hibernate.validator.constraints.Email;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -70,20 +71,19 @@ public class PanelFeedbackDAOTest {
 		log.info("Saving a new Feedback using PanelFeedbackDAO");
 		int before = jdbcTemplate.queryForObject(PANEL_FEEDBACK_COUNT, Integer.class);
 		PanelFeedback panelFeedback = new PanelFeedback();
-		Panel panel = new Panel();
-		panel.setFormat(InterviewFormat.Phone);
-		panel.setPanelRound(1);
-		panel.setStatus(PanelStatus.Pass);
-		panel.setTrainee(traineeDao.findOne(1));
-		panel.setPanelist(trainerDao.findOne(1));
-		Category category = catDao.findOne(2);
-
+//		Panel panel = new Panel();
+//		panel.setFormat(InterviewFormat.Phone);
+//		panel.setPanelRound(1);
+//		panel.setStatus(PanelStatus.Pass);
+//		panel.setTrainee(traineeDao.findOne(1));
+//		panel.setPanelist(trainerDao.findOne(1));
+//		Category category = catDao.findOne(2);
+		Panel panel = entityManager.find(Panel.class, 1);
 		panelFeedback.setComment("test");
 		panelFeedback.setResult(5);
-		panelFeedback.setTechnology(category);
+		panelFeedback.setTechnology(entityManager.find(Category.class, 1));
 		panelFeedback.setStatus(PanelStatus.Pass);
 		panelFeedback.setPanel(panel);
-
 		dao.saveAndFlush(panelFeedback);
 		long panelFeedbackid = panelFeedback.getId();
 		log.info("panelFeedbackId: " + panelFeedbackid);
@@ -98,7 +98,6 @@ public class PanelFeedbackDAOTest {
 		log.info("Finding feedback by panel id");
 		long panelFId = 140;
 		int expected = 70;
-		System.out.println("zzz" +dao.findOne(panelFId));
 		assertEquals(dao.findOne(panelFId).getPanel().getId(), expected);
 	}
 	

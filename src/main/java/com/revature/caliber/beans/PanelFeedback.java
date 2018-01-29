@@ -22,6 +22,7 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
  * Notes and results for each category that the panelist
@@ -37,8 +38,8 @@ public class PanelFeedback {
 
 	@Id
 	@Column(name = "PANEL_FEEDBACK_ID")
+	@SequenceGenerator(name = "PANEL_FEEDBACK_ID_SEQUENCE", sequenceName = "PANEL_FEEDBACK_ID_SEQUENCE", initialValue = 1, allocationSize = 600)
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "PANEL_FEEDBACK_ID_SEQUENCE")
-	@SequenceGenerator(name = "PANEL_FEEDBACK_ID_SEQUENCE", sequenceName = "PANEL_FEEDBACK_ID_SEQUENCE")
 	private long id;
 	
 	@NotNull
