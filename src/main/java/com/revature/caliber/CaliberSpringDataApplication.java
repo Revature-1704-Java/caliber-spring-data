@@ -12,11 +12,8 @@ import com.revature.caliber.beans.Address;
 import com.revature.caliber.beans.Category;
 import com.revature.caliber.beans.Note;
 import com.revature.caliber.data.AddressDAO;
-import com.revature.caliber.data.NoteDAO;
-import com.revature.caliber.beans.Category;
-import com.revature.caliber.beans.Grade;
 import com.revature.caliber.data.CategoryDAO;
-import com.revature.caliber.data.GradeDAO;
+import com.revature.caliber.data.NoteDAO;
 
 @SpringBootApplication
 public class CaliberSpringDataApplication {
@@ -27,8 +24,8 @@ public class CaliberSpringDataApplication {
 	private CategoryDAO catDao;
 	@Autowired
 	private NoteDAO nDao;
-	@Autowired 
-	private GradeDAO gDao;
+//	@Autowired 
+//	private GradeDAO gDao;
 
 
 	public static void main(String[] args) {
@@ -56,6 +53,7 @@ public class CaliberSpringDataApplication {
 			//System.out.println(grades);
 			//Grade test = gDao.findByGradeId(1077L);
 			//System.out.println(test.getGradeId());
+
 		};
 	}
 }
