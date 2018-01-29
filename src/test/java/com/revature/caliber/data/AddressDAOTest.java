@@ -8,7 +8,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.revature.caliber.beans.Address;
@@ -16,8 +15,6 @@ import com.revature.caliber.beans.Address;
 @DataJpaTest
 public class AddressDAOTest {
 	
-	@Autowired
-    private TestEntityManager entityManager;
 	
 	@Autowired
 	AddressDAO dao;
@@ -31,7 +28,7 @@ public class AddressDAOTest {
 	@Test
 	public void testFindByAddressId() {
 		Address test = dao.findByAddressId(1);
-		assertFalse(test == null);
+		assertNotNull(test);
 	}
 	
 	@Test
