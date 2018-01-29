@@ -10,31 +10,42 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 
 import com.revature.caliber.beans.InterviewFormat;
 import com.revature.caliber.beans.Panel;
 import com.revature.caliber.beans.PanelStatus;
 import com.revature.caliber.beans.Trainee;
+import com.revature.caliber.beans.Trainer;
+
+import junit.framework.Assert;
 
 @RunWith(SpringRunner.class)
 @DataJpaTest
 public class PanelDAOTest {
 
 	@Autowired
+    private TestEntityManager entityManager;
+
+	@Autowired
 	private PanelDAO panelDAO;
 
+	
 	Panel panel;
 
 	@Before
 	public void initialize() {
+		Trainee trainee = entityManager.find(Trainee.class, 1);
+		Trainer trainer = entityManager.find(Trainer.class, 3);
 		panel = new Panel();
 		panel.setFormat(InterviewFormat.Phone);
 		panel.setPanelRound(1);
 		panel.setStatus(PanelStatus.Pass);
-//		panel.setTrainee(traineeDao.findOne(1));
-//		panel.setPanelist(trainerDao.findOne(3));
+		panel.setTrainee(trainee);
+		panel.setPanelist(trainer);
 		panel.setInterviewDate(new Date());
 }
+
 	
 	/* Tests getting all panels */
 	@Test
@@ -69,13 +80,18 @@ public class PanelDAOTest {
 	}
 
 	/* Tests saving a panel */
-//	@Test
-//	public void saveTest() {
-//		Panel onePanel = getPanel();
-//		Panel panel = panelDAO.save(onePanel);
-//		System.out.println(panels);
-//		assertFalse(panel == null);
-//	}
+	@Test
+	public void saveTest() {
+		Panel onePanel = panel;
+		Panel panel = panelDAO.save(onePanel);
+		System.out.println(panel);
+		
+		int id = panel.getId();
+		Panel panelConfirm = entityManager.find(Panel.class, id);
+		
+		assertNotNull(panelConfirm);
+		assertEquals(panelConfirm.getId(), id);
+	}
 
 	/* Tests getting one panel by panel Id */
 	@Test

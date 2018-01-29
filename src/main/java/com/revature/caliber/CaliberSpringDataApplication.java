@@ -13,19 +13,9 @@ import com.revature.caliber.data.NoteDAO;
 import com.revature.caliber.beans.Category;
 import com.revature.caliber.beans.Grade;
 import com.revature.caliber.data.CategoryDAO;
-import com.revature.caliber.data.GradeDAO;
 
 @SpringBootApplication
 public class CaliberSpringDataApplication {
-	
-	@Autowired
-	private AddressDAO aDao;
-	@Autowired
-	private CategoryDAO catDao;
-	@Autowired
-	private NoteDAO nDao;
-	@Autowired 
-	private GradeDAO gDao;
 
 
 	public static void main(String[] args) {
