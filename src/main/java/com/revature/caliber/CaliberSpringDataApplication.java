@@ -12,11 +12,8 @@ import com.revature.caliber.beans.Address;
 import com.revature.caliber.beans.Category;
 import com.revature.caliber.beans.Note;
 import com.revature.caliber.data.AddressDAO;
-import com.revature.caliber.data.NoteDAO;
-import com.revature.caliber.beans.Category;
-import com.revature.caliber.beans.Grade;
 import com.revature.caliber.data.CategoryDAO;
-import com.revature.caliber.data.GradeDAO;
+import com.revature.caliber.data.NoteDAO;
 
 @SpringBootApplication
 public class CaliberSpringDataApplication {
@@ -27,8 +24,8 @@ public class CaliberSpringDataApplication {
 	private CategoryDAO catDao;
 	@Autowired
 	private NoteDAO nDao;
-	@Autowired 
-	private GradeDAO gDao;
+//	@Autowired 
+//	private GradeDAO gDao;
 
 
 	public static void main(String[] args) {
@@ -48,14 +45,13 @@ public class CaliberSpringDataApplication {
 			
 			List<Category> categorys = catDao.findAll();
 			System.out.println(categorys);
-			
-			List<Category> activeCategorys = catDao.findAllActive();
-			System.out.println(activeCategorys);
-			
-			//List<Grade> grades = gDao.findAll();
-			//System.out.println(grades);
-			//Grade test = gDao.findByGradeId(1077L);
-			//System.out.println(test.getScore());
+//			List<Panel> panelUpdate = panelDao.update((Panel) panelByPanelId);
+//			System.out.println(panelUpdate);
+
+//			for(Trainee t : panelTraineesAndPanelsPerBatch) {
+//				for(Panel p : t.getPanelInterviews())
+//					System.out.println(p);
+//			}
 		};
 	}
 }
