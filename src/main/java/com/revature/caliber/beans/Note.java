@@ -47,7 +47,7 @@ public class Note implements Serializable{
 	/**
 	 * Will be null if the note is individual trainee feedback
 	 */
-	@ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
+	@ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
 	@JoinColumn(name = "BATCH_ID", nullable = true)
 	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 	private Batch batch;
