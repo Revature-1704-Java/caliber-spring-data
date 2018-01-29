@@ -8,8 +8,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import javax.persistence.EntityManager;
-
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +17,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 import com.revature.caliber.beans.Batch;
 import com.revature.caliber.beans.Grade;
 import com.revature.caliber.beans.Note;
-import com.revature.caliber.beans.NoteType;
 import com.revature.caliber.beans.QCStatus;
 import com.revature.caliber.beans.Trainee;
 
@@ -269,33 +266,5 @@ public class NoteDAOTest {
 
 		// check if the individual notes size is equal to 16
 		assertEquals(16, notes.size());
-	}
-	
-	/**
-	 * Testing saving a note
-	 * @see com.revature.caliber.data.NoteDAO#save(Note)
-	 */
-	@Test
-	public void testSaveNote() {
-//		log.trace("Testing Save Note");
-
-		// find batch and trainee to associate with note
-//		final Batch batch = batchDao.findOne(TEST_QCBATCH_ID);
-//		final Trainee trainee = traineeDao.findAll().get(0);
-
-		// create a new note
-		Note note = new Note();
-		note.setNoteId(1);
-		note.setContent("Note Test");
-		note.setBatch(batch);
-		note.setQcFeedback(false);
-		note.setWeek((short) 1);
-		note.setTrainee(trainee);
-		note.setQcStatus(null);
-		note.setMaxVisibility(null);
-		note.setType(NoteType.TRAINEE);
-
-		// save note
-		noteDao.save(note);
 	}
 }
