@@ -35,9 +35,16 @@ public class CaliberSpringDataApplication {
 	@Bean
 	public CommandLineRunner runner() {
 		return args -> {
-//			Panel panelSave = panelDao.save();
-//			System.out.println(panelSave);
+			List<Address> addresses = aDao.findAll();
+			Address a = aDao.findByAddressId(1);
+			List<Note> notes = nDao.findAllPublicIndividualNotes(5503);
 			
+			System.out.println(addresses);
+			System.out.println(a);
+			System.out.println(notes);
+			
+			List<Category> categorys = catDao.findAll();
+			System.out.println(categorys);
 //			List<Panel> panelUpdate = panelDao.update((Panel) panelByPanelId);
 //			System.out.println(panelUpdate);
 
