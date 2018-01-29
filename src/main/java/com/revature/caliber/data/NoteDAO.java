@@ -34,7 +34,7 @@ public interface NoteDAO extends JpaRepository<Note, Integer> {
 	 * @param week The week for which the Batch's note will be retrieved
 	 * @return The List of batch-level Notes written by Trainers for the given week
 	 */
-	@Query("select distinct n from Note n left join n.batch b left join n.trainee t where b.batchId=?1 and t.trainingStatus<>com.revature.caliber.beans.TrainingStatus.Dropped and n.batch.batchId=?1 and n.week=?2 and n.qcFeedback=false and n.type=com.revature.caliber.beans.NoteType.BATCH")
+	@Query("select distinct n from Note n left join n.batch.trainees t where n.batch.batchId=?1 and t.trainingStatus<>com.revature.caliber.beans.TrainingStatus.Dropped and n.batch.batchId=?1 and n.week=?2 and n.qcFeedback=false and n.type=com.revature.caliber.beans.NoteType.BATCH")
 	List<Note> findBatchNotes(Integer batchId, Short week);
 	
 	
