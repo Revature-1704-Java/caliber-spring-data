@@ -1,5 +1,8 @@
 package com.revature.caliber;
 
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -9,11 +12,8 @@ import com.revature.caliber.beans.Address;
 import com.revature.caliber.beans.Category;
 import com.revature.caliber.beans.Note;
 import com.revature.caliber.data.AddressDAO;
-import com.revature.caliber.data.NoteDAO;
-import com.revature.caliber.beans.Category;
-import com.revature.caliber.beans.Grade;
 import com.revature.caliber.data.CategoryDAO;
-import com.revature.caliber.data.GradeDAO;
+import com.revature.caliber.data.NoteDAO;
 
 @SpringBootApplication
 public class CaliberSpringDataApplication {
@@ -24,8 +24,8 @@ public class CaliberSpringDataApplication {
 	private CategoryDAO catDao;
 	@Autowired
 	private NoteDAO nDao;
-	@Autowired 
-	private GradeDAO gDao;
+//	@Autowired 
+//	private GradeDAO gDao;
 
 
 	public static void main(String[] args) {

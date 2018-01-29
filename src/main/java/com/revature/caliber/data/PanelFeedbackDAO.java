@@ -11,7 +11,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.revature.caliber.beans.Panel;
 import com.revature.caliber.beans.PanelFeedback;
-import com.revature.caliber.beans.PanelStatus;
 
 @Repository
 @Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
