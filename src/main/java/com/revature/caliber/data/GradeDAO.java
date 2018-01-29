@@ -110,10 +110,10 @@ public interface GradeDAO extends JpaRepository<Grade, Integer>{
 	 * reporting.
 	 * 
 	 * @param batchId
-	 * @param week
+	 * @param testAssessmentWeek
 	 * @return
 	 */
 	@Query("SELECT g FROM Grade g left join fetch g.assessment a left join fetch a.batch b where b.batchId=?1 And a.week=?2")
-	public List<Grade> findByWeek(Integer batchId, Short week);
+	public List<Grade> findByWeek(Integer batchId, Short testAssessmentWeek);
 
 }
