@@ -27,7 +27,6 @@ public class CaliberSpringDataApplication {
 //	@Autowired 
 //	private GradeDAO gDao;
 
-
 	public static void main(String[] args) {
 		SpringApplication.run(CaliberSpringDataApplication.class, args);
 	}
@@ -35,13 +34,8 @@ public class CaliberSpringDataApplication {
 	@Bean
 	public CommandLineRunner runner() {
 		return args -> {
-			List<Address> addresses = aDao.findAll();
-			Address a = aDao.findByAddressId(1);
-			List<Note> notes = nDao.findAllPublicIndividualNotes(5503);
-			
-			System.out.println(addresses);
-			System.out.println(a);
-			System.out.println(notes);
+//			Panel panelSave = panelDao.save();
+//			System.out.println(panelSave);
 			
 			List<Category> categorys = catDao.findAll();
 			System.out.println(categorys);
