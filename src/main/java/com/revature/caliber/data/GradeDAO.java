@@ -3,21 +3,15 @@ package com.revature.caliber.data;
 import java.util.List;
 
 import org.apache.log4j.Logger;
-import org.hibernate.Criteria;
-import org.hibernate.SessionFactory;
-import org.hibernate.criterion.Restrictions;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.revature.caliber.beans.Address;
 import com.revature.caliber.beans.Grade;
-import com.revature.caliber.beans.TrainingStatus;
 
+@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 public interface GradeDAO extends JpaRepository<Grade, Integer>{
 
 	static final Logger log = Logger.getLogger(GradeDAO.class);
@@ -37,7 +31,7 @@ public interface GradeDAO extends JpaRepository<Grade, Integer>{
 	 * @param gradeId
 	 * @return
 	 */
-	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
+	//@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public Grade findByGradeId(long gradeId);
 	
 	
@@ -49,7 +43,7 @@ public interface GradeDAO extends JpaRepository<Grade, Integer>{
 	 * @param assessmentId
 	 * @return
 	 */
-	@SuppressWarnings("unchecked")
+
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 	public List<Grade> findByAssessmentAssessmentId(Long assessmentId) ;
 	
@@ -61,7 +55,7 @@ public interface GradeDAO extends JpaRepository<Grade, Integer>{
 	 * @param traineeId
 	 * @return
 	 */
-	@SuppressWarnings("unchecked")
+
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 	public List<Grade> findByTraineeTraineeId(Integer traineeId);
 	
@@ -75,8 +69,44 @@ public interface GradeDAO extends JpaRepository<Grade, Integer>{
 	 */
 //	@SuppressWarnings("unchecked")
 //	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
-//	@Query()
-	//public List<Grade> findByCategoryId(Integer categoryId);
+	@Query("SELECT g FROM Grade g left join fetch g.assessment a left join fetch a.category c where c.categoryId=?1")
+	public List<Grade> findByCategoryId(Integer categoryId);
 
+	
+	/**
+	 * Returns all grades for a batch. Useful for calculating coarsely-grained
+	 * data for reporting.
+	 * 
+	 * @param batchId
+	 * @return
+	 */
+	@Query("SELECT g FROM Grade g left join fetch g.trainee t left join fetch t.batch b where b.batchId=?1")
+	public List<Grade> findByBatchId(Integer batchId);
+	
+	/**
+	 * Returns all grades issued as acting trainer or cotrainer to a batch.
+	 * Useful for calculating coarsely-grained data for reporting. Potential
+	 * refactor here.. this queries database twice where we could find way to
+	 * simply join.
+	 * 
+	 * @param trainerId
+	 * @return
+	 */
+	@Query("SELECT g FROM Grade g left join fetch g.trainee t left join fetch t.batch b left join fetch b.trainer r where r.trainerId=?1")
+	public List<Grade> findByTrainerId(Integer trainerId);
+	
+	
+	
+	/**
+	 * Returns grades for all trainees in the batch on a given week. Used to
+	 * load grade data onto the input spreadsheet, as well as tabular/chart
+	 * reporting.
+	 * 
+	 * @param batchId
+	 * @param testAssessmentWeek
+	 * @return
+	 */
+	@Query("SELECT g FROM Grade g left join fetch g.assessment a left join fetch a.batch b where b.batchId=?1 And a.week=?2")
+	public List<Grade> findByWeek(Integer batchId, Short testAssessmentWeek);
 
 }

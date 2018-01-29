@@ -1,5 +1,8 @@
 package com.revature.caliber;
 
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -9,14 +12,20 @@ import com.revature.caliber.beans.Address;
 import com.revature.caliber.beans.Category;
 import com.revature.caliber.beans.Note;
 import com.revature.caliber.data.AddressDAO;
-import com.revature.caliber.data.NoteDAO;
-import com.revature.caliber.beans.Category;
-import com.revature.caliber.beans.Grade;
 import com.revature.caliber.data.CategoryDAO;
+import com.revature.caliber.data.NoteDAO;
 
 @SpringBootApplication
 public class CaliberSpringDataApplication {
-
+	
+	@Autowired
+	private AddressDAO aDao;
+	@Autowired
+	private CategoryDAO catDao;
+	@Autowired
+	private NoteDAO nDao;
+//	@Autowired 
+//	private GradeDAO gDao;
 
 	public static void main(String[] args) {
 		SpringApplication.run(CaliberSpringDataApplication.class, args);
@@ -28,13 +37,17 @@ public class CaliberSpringDataApplication {
 //			Panel panelSave = panelDao.save();
 //			System.out.println(panelSave);
 			
-//			List<Panel> panelUpdate = panelDao.update((Panel) panelByPanelId);
-//			System.out.println(panelUpdate);
+			List<Category> categorys = catDao.findAll();
+			System.out.println(categorys);
+			
+			List<Category> activeCategorys = catDao.findAllActive();
+			System.out.println(activeCategorys);
+			
+			//List<Grade> grades = gDao.findAll();
+			//System.out.println(grades);
+			//Grade test = gDao.findByGradeId(1077L);
+			//System.out.println(test.getGradeId());
 
-//			for(Trainee t : panelTraineesAndPanelsPerBatch) {
-//				for(Panel p : t.getPanelInterviews())
-//					System.out.println(p);
-//			}
 		};
 	}
 }

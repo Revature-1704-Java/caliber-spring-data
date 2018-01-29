@@ -2,6 +2,7 @@ package com.revature.caliber.data;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 
 import java.util.List;
@@ -11,7 +12,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.revature.caliber.beans.Address;
@@ -19,8 +19,6 @@ import com.revature.caliber.beans.Address;
 @DataJpaTest
 public class AddressDAOTest {
 	
-	@Autowired
-    private TestEntityManager entityManager;
 	
 	@Autowired
 	AddressDAO dao;
@@ -34,7 +32,8 @@ public class AddressDAOTest {
 	@Test
 	public void testFindByAddressId() {
 		Address test = dao.findByAddressId(1);
-		assertFalse(test == null);
+		assertNotNull(test);
+
 	}
 	
 	@Test
@@ -50,7 +49,7 @@ public class AddressDAOTest {
 		
 		Address steve = dao.save(test);
 		
-		assertEquals(test.getStreet(), steve.getStreet());
+		Assert.assertEquals(test.getStreet(), steve.getStreet());
 	}
 	
 	@Test
@@ -77,7 +76,7 @@ public class AddressDAOTest {
 		
 		dao.save(test);
 		
-		assertEquals(test, dao.findByAddressId(1));
+		Assert.assertEquals(test, dao.findByAddressId(1));
 	}
 	
 

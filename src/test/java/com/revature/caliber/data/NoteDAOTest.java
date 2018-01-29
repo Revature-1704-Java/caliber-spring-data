@@ -2,6 +2,7 @@ package com.revature.caliber.data;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
@@ -15,8 +16,8 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.revature.caliber.beans.Batch;
-import com.revature.caliber.beans.Grade;
 import com.revature.caliber.beans.Note;
+import com.revature.caliber.beans.NoteType;
 import com.revature.caliber.beans.QCStatus;
 import com.revature.caliber.beans.Trainee;
 
@@ -31,10 +32,15 @@ public class NoteDAOTest {
 	
 	@Autowired
 	private NoteDAO noteDao;
+	@Autowired
+	private BatchDAO batchDao;
+	@Autowired
+	private TraineeDAO traineeDao;
 
 	/**
+	 * Test method:
 	 * Positive testing for finding a trainee note
-	 * @see com.revature.caliber.data.NoteDAO#findTraineeNote(Integer, Short)
+	 * @see com.revature.caliber.data.NoteDAO#findTraineeNote(Integer traineeId, Short week)
 	 */
 	@Test
 	public void findTraineeNoteTest(){
@@ -53,9 +59,9 @@ public class NoteDAOTest {
 	}
 	
 	/**
-	 * Test methods:
-	 * Positive tests for finding individual notes for trainee
-	 * @see com.revature.caliber.data.NoteDAO#findQCIndividualNotes(Integer, Short)
+	 * Test method:
+	 * Positive test for finding individual notes for a trainee
+	 * @see com.revature.caliber.data.NoteDAO#findQCIndividualNotes(Integer traineeId, Short week)
 	 */
 	@Test
 	public void findQCIndividualNotesTest(){
@@ -71,9 +77,9 @@ public class NoteDAOTest {
 	}
 	
 	/**
-	 * Test methods:
-	 * Positive tests for finding individual notes for a bacth in a given week
-	 * @see com.revature.caliber.data.NoteDAO#findAllBatchNotes(batch,week)
+	 * Test method:
+	 * Positive test for finding individual notes for a batch in a given week
+	 * @see com.revature.caliber.data.NoteDAO#findAllBatchNotes(Integer batchId, Short week)
 	 */
 	@Test
 	public void findAllBatchNotesTest(){
@@ -88,9 +94,9 @@ public class NoteDAOTest {
 	}
 	
 	/**
-	 * Test methods:
-	 * Positive tests for finding individual notes for a trainee in a given week
-	 * @see com.revature.caliber.data.NoteDAO#findAllIndividualNotes(trainee,week)
+	 * Test method:
+	 * Positive test for finding individual notes for a trainee in a given week
+	 * @see com.revature.caliber.data.NoteDAO#findAllIndividualNotes(Integer trainee, Short week)
 	 */
 	@Test
 	public void findAllIndividualNotesTest(){
@@ -106,9 +112,9 @@ public class NoteDAOTest {
 	}
 
 	/**
-	 * Test methods:
-	 * Positive tests for finding all individual notes for a trainee
-	 * @see com.revature.caliber.data.NoteDAO#findAllPublicIndividualNotes(trainee)
+	 * Test method:
+	 * Positive test for finding all individual notes for a trainee
+	 * @see com.revature.caliber.data.NoteDAO#findAllPublicIndividualNotes(Integer traineeId)
 	 */
 	@Test
 	public void findAllPublicIndividualNotesTest(){
@@ -124,8 +130,9 @@ public class NoteDAOTest {
 	}
 	
 	/**
-	 * Positive testing for finding a QC trainee note
-	 * @see com.revature.caliber.data.NoteDAO#findQCTraineeNote(Integer, Integer)
+	 * Test method:
+	 * Positive test for finding a QC trainee note
+	 * @see com.revature.caliber.data.NoteDAO#findQCTraineeNote(Integer traineeId, Short week)
 	 */
 	@Test
 	public void findQCTraineeNoteTest(){
@@ -144,8 +151,9 @@ public class NoteDAOTest {
 	}
 	
 	/**
-	 * Positive testing for finding QC batch notes for a week
-	 * @see com.revature.caliber.data.NoteDAO#findQCBatchNotes(Integer, Integer)
+	 * Test method:
+	 * Positive test for finding QC batch notes for a week
+	 * @see com.revature.caliber.data.NoteDAO#findQCBatchNotes(Integer traineeId, Short week)
 	 */
 	@Test
 	public void findQCBatchNotesTest(){
@@ -161,8 +169,9 @@ public class NoteDAOTest {
 	}
 	
 	/**
-	 * Positive testing for finding all batch level notes
-	 * @see com.revature.caliber.data.NoteDAO#findAllBatchQcNotes(Integer)
+	 * Test method:
+	 * Positive test for finding all batch-level notes
+	 * @see com.revature.caliber.data.NoteDAO#findAllBatchQCNotes(Integer batchId)
 	 */
 	@Test
 	public void findAllBatchQCNotesTest(){
@@ -176,8 +185,9 @@ public class NoteDAOTest {
 	}
 	
 	/**
-	 * Positive testing for finding all QC notes for a batch
-	 * @see com.revature.caliber.data.NoteDAO#findAllQCBatchNotes(Integer)
+	 * Test method:
+	 * Positive test for finding all QC notes for a batch
+	 * @see com.revature.caliber.data.NoteDAO#findAllQCBatchNotes(Integer batchId)
 	 */
 	@Test	
 	public void findAllQCBatchNotesTest(){
@@ -196,8 +206,9 @@ public class NoteDAOTest {
 	}
 	
 	/**
-	 * Positive testing for finding all QC notes for a trainee for a week
-	 * @see com.revature.caliber.data.NoteDAO#findAllQCTraineeNotes(Integer, Integer)
+	 * Test method:
+	 * Positive test for finding all QC notes for a trainee for a week
+	 * @see com.revature.caliber.data.NoteDAO#findAllQCTraineeNotes(Integer batchId, Short week)
 	 */
 	@Test	
 	public void findAllQCTraineeNotesTest(){
@@ -217,8 +228,9 @@ public class NoteDAOTest {
 	}
 	
 	/**
-	 * Positive testing for finding all QC notes for a trainee
-	 * @see com.revature.caliber.data.NoteDAO#findAllQCTraineeOverallNotes(Integer)
+	 * Test method:
+	 * Positive test for finding all QC notes for a trainee
+	 * @see com.revature.caliber.data.NoteDAO#findAllQCTraineeOverallNotes(Integer traineeId)
 	 */
 	@Test	
 	public void findAllQCTraineeOverallNotes(){
@@ -237,8 +249,9 @@ public class NoteDAOTest {
 	}
 	
 	/**
-	 * Tests finding batch notes
-	 * @see com.revature.caliber.data.NoteDAO#findBatchNotes(Integer, Integer)
+	 * Test method:
+	 * Positive test for finding batch notes for a week
+	 * @see com.revature.caliber.data.NoteDAO#findBatchNotes(Integer batchId, Short week)
 	 */
 	@Test
 	public void findBatchNotesTest() {
@@ -253,8 +266,9 @@ public class NoteDAOTest {
 	}
 	
 	/**
-	 * Tests finding individual notes
-	 * @see com.revature.caliber.data.NoteDAO#findIndividualNotes(Integer, Integer)
+	 * Test method:
+	 * Positive test finding individual notes for a week
+	 * @see com.revature.caliber.data.NoteDAO#findIndividualNotes(Integer batchId, Short week)
 	 */
 	@Test
 	public void findIndividualNotesTest() {
@@ -266,5 +280,63 @@ public class NoteDAOTest {
 
 		// check if the individual notes size is equal to 16
 		assertEquals(16, notes.size());
+	}
+	
+	/**
+	 * Testing saving a note
+	 * @see com.revature.caliber.data.NoteDAO#save(Note)
+	 */
+	@Test
+	public void saveTest() {
+//		log.trace("Testing Save Note");
+
+		// find batch and trainee to associate with note
+		final Batch batch = batchDao.findOne(TEST_QCBATCH_ID);
+		final Trainee trainee = traineeDao.findAll().get(0);
+
+		// create a new note
+		Note note = new Note();
+		note.setNoteId(1);
+		note.setContent("Note Test");
+		note.setBatch(batch);
+		note.setQcFeedback(false);
+		note.setWeek((short) 1);
+		note.setTrainee(trainee);
+		note.setQcStatus(null);
+		note.setMaxVisibility(null);
+		note.setType(NoteType.TRAINEE);
+
+		// save note
+		noteDao.save(note);
+	}
+	
+	/**
+	 * Tests updating a note's content
+	 * @see com.revature.caliber.data.NoteDAO#update(Note)
+	 */
+	@Test
+	public void testUpdateNote() {
+//		log.trace("Testing updating note");
+		final short week = 2;
+
+		// get the list of individual notes for week 2
+		List<Note> notes = noteDao.findIndividualNotes(TEST_QCBATCH_ID, week);
+
+		assertTrue(!notes.isEmpty());
+
+		Note note = notes.get(1);
+
+		// Old Content = Superstar. Great communication skill and good solid knowledge.
+		String oldContent = note.getContent();
+
+		note.setContent("Hello");
+
+		// update note
+		noteDao.save(note);
+
+		// Old Content should not equal new Content if updated
+		notes = noteDao.findIndividualNotes(TEST_QCBATCH_ID, week);
+		String newContentSet = notes.get(1).getContent();
+		assertNotEquals(oldContent, newContentSet);
 	}
 }
