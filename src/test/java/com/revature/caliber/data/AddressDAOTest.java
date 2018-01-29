@@ -1,9 +1,12 @@
 package com.revature.caliber.data;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNull;
 
 import java.util.List;
 
+import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,14 +18,84 @@ import com.revature.caliber.beans.Address;
 @RunWith(SpringRunner.class)
 @DataJpaTest
 public class AddressDAOTest {
+	
 	@Autowired
     private TestEntityManager entityManager;
+	
 	@Autowired
 	AddressDAO dao;
+	
 	@Test
-	public void test() {
+	public void testFindAll() {
 		List<Address> test = dao.findAll();
-		assertFalse(test.isEmpty());
+		Assert.assertTrue(test.isEmpty());
+	}
+	
+	@Test
+	public void testFindByAddressId() {
+		Address test = dao.findByAddressId(1);
+		assertFalse(test == null);
+	}
+	
+	@Test
+	public void testAddAddress() {
+		Address test = new Address();
+		
+		test.setStreet("test");
+		test.setCity("test");
+		test.setState("test");
+		test.setZipcode("test");
+		test.setCompany("test");
+		test.setActive(false);
+		
+		Address steve = dao.save(test);
+		
+		assertEquals(test.getStreet(), steve.getStreet());
+	}
+	
+	@Test
+	public void testUpdateAddress() {
+		Address test = new Address();
+		
+		test.setStreet("test");
+		test.setCity("test");
+		test.setState("test");
+		test.setZipcode("test");
+		test.setCompany("test");
+		test.setActive(false);
+		
+		dao.save(test);
+		
+		test = dao.findByAddressId(1);
+		
+		test.setStreet("test");
+		test.setCity("test");
+		test.setState("test");
+		test.setZipcode("test");
+		test.setCompany("test");
+		test.setActive(false);
+		
+		dao.save(test);
+		
+		assertEquals(test, dao.findByAddressId(1));
+	}
+	
+
+	@Test
+	public void testDeleteAddress() {
+		Address test = new Address();
+		
+		test.setStreet("test");
+		test.setCity("test");
+		test.setState("test");
+		test.setZipcode("test");
+		test.setCompany("test");
+		test.setActive(false);
+		
+		Address steve = dao.save(test);
+		dao.delete(steve);
+		
+		assertNull(dao.findByAddressId(steve.getAddressId()));
 	}
 
 }
