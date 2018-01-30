@@ -33,6 +33,7 @@ public class AddressDAOTest {
 	public void testFindByAddressId() {
 		Address test = dao.findByAddressId(1);
 		assertNotNull(test);
+
 	}
 	
 	@Test
@@ -48,7 +49,7 @@ public class AddressDAOTest {
 		
 		Address steve = dao.save(test);
 		
-		assertEquals(test.getStreet(), steve.getStreet());
+		Assert.assertEquals(test.getStreet(), steve.getStreet());
 	}
 	
 	@Test
@@ -75,7 +76,7 @@ public class AddressDAOTest {
 		
 		dao.save(test);
 		
-		assertEquals(test, dao.findByAddressId(1));
+		Assert.assertEquals(test, dao.findByAddressId(1));
 	}
 	
 
